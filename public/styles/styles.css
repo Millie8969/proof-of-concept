@@ -35,6 +35,10 @@
   animation-timing-function: ease-in-out;
 }
 
+/* User preferences */
+@media (prefers-reduced-motion: reduce) {
+    @view-transition {
+        navigation: none;
     }
     to {
         opacity: 0;
