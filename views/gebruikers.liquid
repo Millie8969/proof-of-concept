@@ -1,0 +1,19 @@
+{% render 'partials/head.liquid' %}
+{% render 'partials/nav.liquid' %}
+
+<main>
+    <h1 class="pageTitle">Meest actieve gebruikers</h1>
+
+    <ol>
+    {% for user in users %}
+        <li>
+            <picture>
+                <img src="https://tweakers.net/identicon/{{ user.forum_id }}">
+            </picture>
+            <p class>Gebruiker: {{ user.username }}</p>
+            <p class>Aantal posts: {{ user.number_of_posts }}</p>
+        </li>
+    {% endfor %}
+    </ol>
+
+</main>

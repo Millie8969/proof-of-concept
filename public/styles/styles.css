@@ -29,6 +29,10 @@
     --card-border-radius: 10px;
 }
 
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
 @font-face {
     font-family: 'IBM Plex Sans Condensed';
     src: url("/fonts/IBMPlexSansCondensed_Regular.ttf");

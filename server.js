@@ -77,7 +77,6 @@ app.get('/', async function (request, response) {
   const tweakersRssResponse = await fetch('https://gathering.tweakers.net/rss/')
   const tweakersRssResponseXML = await tweakersRssResponse.text()
   const { feed: tweakersRssResponseFeed } = parseFeed(tweakersRssResponseXML)
-  console.log(tweakersRssResponseFeed)
 
   const tweakersActiveTopicsResponse = await fetch('https://gathering.tweakers.net/rss/list_activetopics')
   const tweakersActiveTopicsResponseXML = await tweakersActiveTopicsResponse.text()
@@ -126,8 +125,6 @@ app.get('/', async function (request, response) {
    }
    return 0;
   })
-
-  console.log(tweakersActiveTopicsFeed)
   
   response.render('dashboard.liquid', {
     rss: rssItems,
@@ -137,12 +134,13 @@ app.get('/', async function (request, response) {
 
 // GET-endpoint die alle gebruikersdata ophaalt
 // Zie https://expressjs.com/en/5x/api.html#app.get.method over app.get()
-app.get('/dashboard', async function (request, response) {
-  const userResponse = await fetch('https://fdnd-agency.directus.app/items/tweakers_users')
+app.get('/gebruikers', async function (request, response) {
+  const directusUserResponse = await fetch('https://fdnd-agency.directus.app/items/tweakers_users?sort=-number_of_posts')
+  const directusUserResponseJSON = await directusUserResponse.json()
+  const data = directusUserResponseJSON.data
   
   // Zie https://expressjs.com/en/5x/api.html#res.render over response.render()
-  const userJSON = await userResponse.json();
-  response.render('index.liquid', {users: userJSON.data})
+  response.render('gebruikers.liquid', { users: data })
 })
 
 // Stel het poortnummer in waar Express op moet gaan luisteren
