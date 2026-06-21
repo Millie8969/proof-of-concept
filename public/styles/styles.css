@@ -77,7 +77,12 @@ h2 {
     margin-bottom: var(--margin-standard);
 }
 
-
+.topic {
+    max-width: 215px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .topic:hover {
     text-decoration: underline;
