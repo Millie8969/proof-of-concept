@@ -61,6 +61,29 @@ h2 {
     font-size: var(--text-body-m);
 }
 
+.header {
+    display: flex;
+    height: 60px;
+    background-color: var(--primary-red);
+
+    & .headerNav {
+        text-decoration: none;
+        font-family: 'IBM Plex Sans Condensed';
+        font-weight: bold;
+
+        color: var(--header-text-color);
+
+        align-self: center;
+
+        padding-left: var(--padding-standard);
+        padding-right: var(--padding-standard);
+    }
+}
+
+.headerLogo {
+    align-self: center;
+}
+
 .tableTitle {
     font-size: var(--text-body-s);
     font-family: 'IBM Plex Sans Condensed';
