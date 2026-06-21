@@ -1,0 +1,81 @@
+:root {
+    /* Typography */
+    --text-body-l: clamp(1.5rem, 1.324rem + 0.751vw, 2rem);
+
+    --text-body-m: clamp(1.25rem, 1.074rem + 0.751vw, 1.75rem);
+
+    --text-body-s: clamp(1rem, 0.824rem + 0.751vw, 1.5rem);
+
+    --text-size-base: 16px;
+
+    /* Colors */
+    --primary-red: #A11236;
+    --primary-green: #D9E54D;
+    --primary-accent: #004D99;
+    --background-grey: #F1F2F4;
+    --standard-grey: #D5D9DD;
+    --header-text-color: #FFFFFF;
+
+    /* Spacing */
+    --page-hori-padding: 10%;
+
+    --padding-standard: 20px;
+    --padding-light: 10px;
+
+    --margin-standard: 20px;
+    --margin-light: 10px;
+
+    /* Miscellaneous */
+    --card-border-radius: 10px;
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans Condensed';
+    src: url("/fonts/IBMPlexSansCondensed_Regular.ttf");
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans Condensed';
+    src: url("/fonts/IBMPlexSansCondensed_Bold.ttf");
+    font-weight: bold;
+}
+
+.tableTitle {
+    font-size: var(--text-body-s);
+    font-family: 'IBM Plex Sans Condensed';
+}
+
+.dashboardCard {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: var(--padding-light);
+    border: solid 1px black;
+    border-radius: var(--card-border-radius);
+    width: fit-content;
+    margin-bottom: var(--margin-standard);
+}
+
+.topic {
+    max-width: 215px;      /* or any fixed width */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topic:hover {
+    text-decoration: underline;
+}
+
+.topicLink {
+    color: black;
+    text-decoration: none;
+}
+
+.latestReply {
+    text-align: center;
+}
+
+.divider {
+    width: 100%;
+    color: var(--standard-grey);
