@@ -40,6 +40,27 @@
     font-weight: bold;
 }
 
+body {
+    font-size: var(--text-size-base);
+    margin: 0px;
+    background-color: var(--background-grey);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    padding-left: var(--page-hori-padding);
+    padding-right: var(--page-hori-padding);
+}
+
+h1 {
+    font-size: var(--text-body-l);
+    font-family: 'IBM Plex Sans Condensed';
+}
+
+h2 {
+    font-size: var(--text-body-m);
+}
+
 .tableTitle {
     font-size: var(--text-body-s);
     font-family: 'IBM Plex Sans Condensed';
