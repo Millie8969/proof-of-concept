@@ -40,8 +40,9 @@
     @view-transition {
         navigation: none;
     }
-    to {
-        opacity: 0;
+}
+
+/* Fonts */
 @font-face {
     font-family: 'IBM Plex Sans Condensed';
     src: url("/fonts/IBMPlexSansCondensed_Regular.ttf");
@@ -95,6 +96,11 @@ h2 {
 
 .headerLogo {
     align-self: center;
+}
+
+.pageTitle {
+    view-transition-name: page-title;
+    font-weight: bold;
 }
 
 .tableTitle {
