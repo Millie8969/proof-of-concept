@@ -38,8 +38,8 @@ const fetchWithCookies = fetchCookie(fetch, cookieJar);
 
 // Hulpfunctie die de privacy gate van DPG Media omzeilt
 async function fetchTweakers(url, options = {}) {
-  const res = await fetchWithCookies(url, options);
-  const html = await res.text();
+  let res = await fetchWithCookies(url, options);
+  let html = await res.text();
 
   if (html.includes('DPG Media Privacy Gate')) {
 
