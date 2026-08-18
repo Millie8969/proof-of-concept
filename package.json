@@ -28,7 +28,9 @@
   "dependencies": {
     "express": "^5.0.1",
     "feedsmith": "^2.9.4",
+    "fetch-cookie": "^3.2.0",
     "jsdom": "^29.1.1",
-    "liquidjs": "^10.21.0"
+    "liquidjs": "^10.21.0",
+    "tough-cookie": "^6.0.2"
   }
 }

@@ -29,6 +29,12 @@ app.engine('liquid', engine.express());
 // Let op: de browser kan deze bestanden niet rechtstreeks laden (zoals voorheen met HTML bestanden)
 app.set('views', './views');
 
+import fetchCookie from 'fetch-cookie';
+import { CookieJar } from 'tough-cookie';
+
+// Cookie jar wordt geplaatst in module scope zodat die hergebruikt kan worden op meerdere plekken
+const cookieJar = new CookieJar();
+const fetchWithCookies = fetchCookie(fetch, cookieJar);
 const scrapeAndUpdateTweakers = async function() {
   const tweakersActiveTopicsResponse = await fetch('https://gathering.tweakers.net/rss/list_activetopics')
   const tweakersActiveTopicsResponseXML = await tweakersActiveTopicsResponse.text()
