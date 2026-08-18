@@ -117,7 +117,7 @@ scrapeAndUpdateTweakers()
 app.get('/', async function (request, response) {
   const tweakersRssResponse = await fetchTweakers('https://gathering.tweakers.net/rss/')
   const tweakersRssResponseXML = await tweakersRssResponse.text()
-  const { feed: tweakersRssResponseFeed } = parseFeed(tweakersRssResponseXML)
+  const { feed: tweakersRssResponseFeed } = await parseFeed(tweakersRssResponseXML);
 
   const tweakersActiveTopicsResponse = await fetchTweakers('https://gathering.tweakers.net/rss/list_activetopics')
   const tweakersActiveTopicsResponseXML = await tweakersActiveTopicsResponse.text()
