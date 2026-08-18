@@ -35,6 +35,37 @@ import { CookieJar } from 'tough-cookie';
 // Cookie jar wordt geplaatst in module scope zodat die hergebruikt kan worden op meerdere plekken
 const cookieJar = new CookieJar();
 const fetchWithCookies = fetchCookie(fetch, cookieJar);
+
+// Hulpfunctie die de privacy gate van DPG Media omzeilt
+async function fetchTweakers(url, options = {}) {
+  const res = await fetchWithCookies(url, options);
+  const html = await res.text();
+
+  if (html.includes('DPG Media Privacy Gate')) {
+
+    // Callback URL achterhalen vanuit het inline script
+    const match = html.match(/decodeURIComponent\('([^']+)'\)/);
+    if (!match) {
+      throw new Error('Hit the privacy gate but could not find callback URL in gate page');
+    }
+    const callbackUrl = decodeURIComponent(match[1]);
+
+    // Setten van de consent-cookie in de "jar"
+    await fetchWithCookies(callbackUrl);
+
+    // Nog een keer fetchen met de consent-cookie 
+    res = await fetchWithCookies(url, options);
+    html = await res.text();
+
+  }
+
+  // Teruggeven van het document in de juiste vorm zodat de rest van de code niet aangepast hoeft te worden
+  return {
+    status: res.status,
+    text: async () => html,
+  };
+}
+
 const scrapeAndUpdateTweakers = async function() {
   const tweakersActiveTopicsResponse = await fetch('https://gathering.tweakers.net/rss/list_activetopics')
   const tweakersActiveTopicsResponseXML = await tweakersActiveTopicsResponse.text()
