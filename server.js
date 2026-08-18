@@ -67,17 +67,21 @@ async function fetchTweakers(url, options = {}) {
 }
 
 const scrapeAndUpdateTweakers = async function() {
-  const tweakersActiveTopicsResponse = await fetch('https://gathering.tweakers.net/rss/list_activetopics')
+  const tweakersActiveTopicsResponse = await fetchTweakers('https://gathering.tweakers.net/rss/list_activetopics')
   const tweakersActiveTopicsResponseXML = await tweakersActiveTopicsResponse.text()
   const { feed: tweakersActiveTopicsFeed } = await parseFeed(tweakersActiveTopicsResponseXML)
-  const tweakersLastPoster = tweakersActiveTopicsFeed.items[0].description.substring(13 + tweakersActiveTopicsFeed.items[0].description.indexOf('Last poster: '), tweakersActiveTopicsFeed.items[0].description.indexOf(' at '))
+  const tweakersLastPoster = tweakersActiveTopicsFeed.items[0].description.substring(13 + tweakersActiveTopicsFeed.items[0].description.indexOf('Last poster: '), 
+  tweakersActiveTopicsFeed.items[0].description.indexOf(' at '))
+
   const directusUserResponse = await fetch('https://fdnd-agency.directus.app/items/tweakers_users?' + new URLSearchParams({'filter[username]' : tweakersLastPoster}))
   const directusUserResponseJSON = await directusUserResponse.json()
-  const tweakersLastPosterProfileResponse = await fetch('https://tweakers.net/gallery/' + tweakersLastPoster)
+
+  const tweakersLastPosterProfileResponse = await fetchTweakers('https://tweakers.net/gallery/' + tweakersLastPoster)
   const tweakersLastPosterProfileResponseHTML = await tweakersLastPosterProfileResponse.text()
   const { document: tweakersLastPosterProfileResponseDOM } = (new JSDOM(tweakersLastPosterProfileResponseHTML)).window
   const tweakersLastPosterProfileLink = tweakersLastPosterProfileResponseDOM.querySelector('a[href^="https://gathering.tweakers.net/forum/find/poster/"]')
   const tweakersLastPosterPostCount = tweakersLastPosterProfileLink.textContent.replace(/\./g, '')
+
   if (directusUserResponseJSON.data.length == 1) {
     await fetch('https://fdnd-agency.directus.app/items/tweakers_users', {
       method: 'PATCH',
@@ -111,11 +115,11 @@ const scrapeAndUpdateTweakers = async function() {
 scrapeAndUpdateTweakers()
 
 app.get('/', async function (request, response) {
-  const tweakersRssResponse = await fetch('https://gathering.tweakers.net/rss/')
+  const tweakersRssResponse = await fetchTweakers('https://gathering.tweakers.net/rss/')
   const tweakersRssResponseXML = await tweakersRssResponse.text()
   const { feed: tweakersRssResponseFeed } = parseFeed(tweakersRssResponseXML)
 
-  const tweakersActiveTopicsResponse = await fetch('https://gathering.tweakers.net/rss/list_activetopics')
+  const tweakersActiveTopicsResponse = await fetchTweakers('https://gathering.tweakers.net/rss/list_activetopics')
   const tweakersActiveTopicsResponseXML = await tweakersActiveTopicsResponse.text()
   const { feed: tweakersActiveTopicsFeed } = await parseFeed(tweakersActiveTopicsResponseXML)
 
