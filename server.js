@@ -41,7 +41,11 @@ const fetchWithCookies = fetchCookie(fetch, cookieJar);
 
 // Hulpfunctie die de privacy gate van DPG Media omzeilt
 async function fetchTweakers(url, options = {}) {
-  let res = await fetchWithCookies(url, options);
+  let res = await fetchWithCookies(url, options, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0'
+    }
+  });
   let html = await res.text();
 
   if (html.includes('DPG Media Privacy Gate')) {
@@ -81,10 +85,6 @@ const scrapeAndUpdateTweakers = async function() {
 
   const tweakersLastPosterProfileResponse = await fetchTweakers('https://tweakers.net/gallery/' + tweakersLastPoster)
   const tweakersLastPosterProfileResponseHTML = await tweakersLastPosterProfileResponse.text()
-  console.log('status:', tweakersLastPosterProfileResponse.status)
-  console.log('contains gate:', tweakersLastPosterProfileResponseHTML.includes('DPG Media Privacy Gate'))
-  console.log('length:', tweakersLastPosterProfileResponseHTML.length)
-  console.log('FULL BODY:', tweakersLastPosterProfileResponseHTML)
   const { document: tweakersLastPosterProfileResponseDOM } = (new JSDOM(tweakersLastPosterProfileResponseHTML)).window
   const tweakersLastPosterProfileLink = tweakersLastPosterProfileResponseDOM.querySelector('a[href^="https://gathering.tweakers.net/forum/find/poster/"]')
   const tweakersLastPosterPostCount = tweakersLastPosterProfileLink.textContent.replace(/\./g, '')
@@ -127,62 +127,64 @@ app.get("/", (request, response) => {
 
 // GET-endpoint die het dashboard weergeeft.
 app.get('/dashboard', async function (request, response) {
-  const tweakersRssResponse = await fetchTweakers('https://gathering.tweakers.net/rss/')
-  const tweakersRssResponseXML = await tweakersRssResponse.text()
-  const { feed: tweakersRssResponseFeed } = await parseFeed(tweakersRssResponseXML);
+//   const tweakersRssResponse = await fetchTweakers('https://gathering.tweakers.net/rss/')
+//   const tweakersRssResponseXML = await tweakersRssResponse.text()
+//   const { feed: tweakersRssResponseFeed } = await parseFeed(tweakersRssResponseXML);
 
-  const tweakersActiveTopicsResponse = await fetchTweakers('https://gathering.tweakers.net/rss/list_activetopics')
-  const tweakersActiveTopicsResponseXML = await tweakersActiveTopicsResponse.text()
-  const { feed: tweakersActiveTopicsFeed } = await parseFeed(tweakersActiveTopicsResponseXML)
+//   const tweakersActiveTopicsResponse = await fetchTweakers('https://gathering.tweakers.net/rss/list_activetopics')
+//   const tweakersActiveTopicsResponseXML = await tweakersActiveTopicsResponse.text()
+//   const { feed: tweakersActiveTopicsFeed } = await parseFeed(tweakersActiveTopicsResponseXML)
 
-  const rssItems = []
-  for (const item of tweakersRssResponseFeed.items) {
-    rssItems.push({
-      title: item.title,
-      link: item.link,
-      replies: Number(item.description.substring(9, item.description.indexOf('\n')))
-    })
-  }
+//   const rssItems = []
+//   for (const item of tweakersRssResponseFeed.items) {
+//     rssItems.push({
+//       title: item.title,
+//       link: item.link,
+//       replies: Number(item.description.substring(9, item.description.indexOf('\n')))
+//     })
+//   }
 
-  rssItems.sort(function(a, b) {
-   if (a.replies < b.replies) {
-    return 1;
-   } else if (a.replies > b.replies) {
-    return -1;
-   }
-   return 0;
-  })
+//   rssItems.sort(function(a, b) {
+//    if (a.replies < b.replies) {
+//     return 1;
+//    } else if (a.replies > b.replies) {
+//     return -1;
+//    }
+//    return 0;
+//   })
 
-  function extractDateTime(text) {
-  const match = text.match(/(\d{2})-(\d{2})-(\d{4}) (\d{2}):(\d{2})/);
-  if (!match) return null;
+//   function extractDateTime(text) {
+//   const match = text.match(/(\d{2})-(\d{2})-(\d{4}) (\d{2}):(\d{2})/);
+//   if (!match) return null;
 
-  const [, day, month, year, hours, minutes] = match;
-  return new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
-}
+//   const [, day, month, year, hours, minutes] = match;
+//   return new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
+// }
 
-  const activeTopicsItems = []
-  for (const item of tweakersActiveTopicsFeed.items) {
-    activeTopicsItems.push({
-      title: item.title,
-      link: item.link,
-      date: extractDateTime(item.description)
-    })
-  }
+//   const activeTopicsItems = []
+//   for (const item of tweakersActiveTopicsFeed.items) {
+//     activeTopicsItems.push({
+//       title: item.title,
+//       link: item.link,
+//       date: extractDateTime(item.description)
+//     })
+//   }
 
-  activeTopicsItems.sort(function(a, b) {
-   if (a.date < b.date) {
-    return 1;
-   } else if (a.date > b.date) {
-    return -1;
-   }
-   return 0;
-  })
+//   activeTopicsItems.sort(function(a, b) {
+//    if (a.date < b.date) {
+//     return 1;
+//    } else if (a.date > b.date) {
+//     return -1;
+//    }
+//    return 0;
+//   })
   
-  response.render('dashboard.liquid', {
-    rss: rssItems,
-    activeTopics: activeTopicsItems
-  })
+  response.render('dashboard.liquid', 
+    // {
+    //   rss: rssItems,
+    //   activeTopics: activeTopicsItems
+    // }
+  )
 })
 
 // GET-endpoint die alle gebruikersdata ophaalt
