@@ -119,8 +119,13 @@ const scrapeAndUpdateTweakers = async function() {
   }
 }
 
-scrapeAndUpdateTweakers()
+//scrapeAndUpdateTweakers()
 
+app.get("/", (request, response) => {
+    response.redirect("/dashboard");
+});
+
+// GET-endpoint die het dashboard weergeeft.
 app.get('/dashboard', async function (request, response) {
   const tweakersRssResponse = await fetchTweakers('https://gathering.tweakers.net/rss/')
   const tweakersRssResponseXML = await tweakersRssResponse.text()
