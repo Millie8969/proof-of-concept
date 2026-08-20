@@ -81,6 +81,8 @@ const scrapeAndUpdateTweakers = async function() {
 
   const tweakersLastPosterProfileResponse = await fetchTweakers('https://tweakers.net/gallery/' + tweakersLastPoster)
   const tweakersLastPosterProfileResponseHTML = await tweakersLastPosterProfileResponse.text()
+  console.log('contains gate:', tweakersLastPosterProfileResponseHTML.includes('DPG Media Privacy Gate'))
+  console.log('length:', tweakersLastPosterProfileResponseHTML.length)
   const { document: tweakersLastPosterProfileResponseDOM } = (new JSDOM(tweakersLastPosterProfileResponseHTML)).window
   const tweakersLastPosterProfileLink = tweakersLastPosterProfileResponseDOM.querySelector('a[href^="https://gathering.tweakers.net/forum/find/poster/"]')
   const tweakersLastPosterPostCount = tweakersLastPosterProfileLink.textContent.replace(/\./g, '')
