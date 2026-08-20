@@ -11,6 +11,12 @@ import { parseFeed } from 'feedsmith';
 // Importeer de JSDOM package
 import { JSDOM } from 'jsdom';
 
+// Importeer de fetchCookie package
+import fetchCookie from 'fetch-cookie';
+
+// Importeer de tough-cookie package
+import { CookieJar } from 'tough-cookie';
+
 // Maak een nieuwe Express applicatie aan, waarin we de server configureren
 const app = express();
 
@@ -28,9 +34,6 @@ app.engine('liquid', engine.express());
 // Stel de map met Liquid templates in
 // Let op: de browser kan deze bestanden niet rechtstreeks laden (zoals voorheen met HTML bestanden)
 app.set('views', './views');
-
-import fetchCookie from 'fetch-cookie';
-import { CookieJar } from 'tough-cookie';
 
 // Cookie jar wordt geplaatst in module scope zodat die hergebruikt kan worden op meerdere plekken
 const cookieJar = new CookieJar();
@@ -114,7 +117,7 @@ const scrapeAndUpdateTweakers = async function() {
 
 scrapeAndUpdateTweakers()
 
-app.get('/', async function (request, response) {
+app.get('/dashboard', async function (request, response) {
   const tweakersRssResponse = await fetchTweakers('https://gathering.tweakers.net/rss/')
   const tweakersRssResponseXML = await tweakersRssResponse.text()
   const { feed: tweakersRssResponseFeed } = await parseFeed(tweakersRssResponseXML);
