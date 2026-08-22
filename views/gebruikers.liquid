@@ -8,7 +8,7 @@
     {% for user in users %}
         <li>
             <picture>
-                <img src="https://tweakers.net/identicon/{{ user.forum_id }}">
+                <img src="https://tweakers.net/identicon/{{ user.forum_id }}" width="25px" height="25px" alt="Profielfoto van {{ user.username }}">
             </picture>
             <p class>Gebruiker: {{ user.username }}</p>
             <p class>Aantal posts: {{ user.number_of_posts }}</p>
