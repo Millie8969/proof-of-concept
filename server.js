@@ -122,7 +122,7 @@ const scrapeAndUpdateTweakers = async function() {
 //scrapeAndUpdateTweakers()
 
 app.get("/", (request, response) => {
-    response.redirect("/dashboard");
+    response.redirect('/login');
 });
 
 // GET-endpoint die het dashboard weergeeft.
@@ -185,6 +185,20 @@ app.get('/dashboard', async function (request, response) {
     //   activeTopics: activeTopicsItems
     // }
   )
+})
+
+app.get('/login', async function (request, response) {
+  const loginDetails = {
+    name: "admin",
+    password: "admin"
+  }
+
+  response.render('login.liquid', { loginDetails: loginDetails})
+})
+
+app.post('/submitLogin', async function (request, response) {
+  
+  response.redirect('/dashboard')
 })
 
 // GET-endpoint die alle gebruikersdata ophaalt
