@@ -179,7 +179,7 @@ app.get('/dashboard', async function (request, response) {
 //    return 0;
 //   })
   
-  response.render('dashboard.liquid', 
+  response.render('dashboard.liquid',
     // {
     //   rss: rssItems,
     //   activeTopics: activeTopicsItems
@@ -197,7 +197,8 @@ app.get('/login', async function (request, response) {
 })
 
 app.post('/submitLogin', async function (request, response) {
-  
+
+
   response.redirect('/dashboard')
 })
 
