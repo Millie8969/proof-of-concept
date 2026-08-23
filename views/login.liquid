@@ -3,11 +3,15 @@
 
 <h1>Tweakers Community Manager Dashboard</h1>
 
-<article>
+<article class="loginContainer">
 <h2 class="loginTitle">Login</h2>
-<form method="post" action="/submitLogin">
-    <label>Naam:<input name="name"></label>
-    <label>Wachtwoord:<input name="password"></label>
+<form method="post" action="/submitLogin" class="loginForm">
+    <label class="formLabel">Naam:<input type="text" name="name" id="name" class="input"></label>
+    <label class="formLabel">Wachtwoord:<input type="password" name="password" id="password" class="input"></label>
+    <section id="statusMessage"></section>
     <button class="loginButton" type="submit">Inloggen</button>
 </form>
+
 </article>
+
+{% render 'partials/loginFoot.liquid' %}
