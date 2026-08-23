@@ -219,8 +219,10 @@ h2 {
 }
 
 .loginButton:hover {
-    transform: scale(1.05);
-    transition: 500ms;
+    @media (prefers-reduced-motion: no-preference) {
+        transform: scale(1.05);
+        transition: 500ms;
+    }
 }
 
 .loginButton:active {
