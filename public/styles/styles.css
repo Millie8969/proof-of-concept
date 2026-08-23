@@ -69,6 +69,10 @@ main {
 h1 {
     font-size: var(--text-body-l);
     font-family: 'IBM Plex Sans Condensed';
+    display: flex;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h2 {
@@ -142,4 +146,92 @@ h2 {
 .divider {
     width: 100%;
     color: var(--standard-grey);
+}
+
+/* LOGIN STYLES */
+
+.loginTitle {
+    text-align: center;
+}
+
+.loginContainer {
+    font-size: var(--text-size-base);
+    display: flex;
+    flex-direction: column;
+    
+
+    padding: var(--padding-standard);
+
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+
+    background-color: var(--primary-red);
+
+    font-family: 'IBM Plex Sans Condensed';
+    color: #FFFFFF;
+
+    border-radius: var(--card-border-radius);
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.loginForm {
+    width: 60%;
+    align-self: center;
+
+   & .formLabel {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        text-align: left;
+        max-width: 300px;
+        line-height: 25px;
+        margin-bottom: var(--margin-standard);
+    }
+
+    & .input {
+        align-self: right;
+        height: 20px;
+        flex: 0 0 100px;
+        margin-left: var(--margin-standard);
+    }
+}
+
+.loginButton {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 50px;
+    font-family: 'IBM Plex Sans Condensed';
+
+    background-color: #D9E54D;
+    color: black;
+
+    font-size: var(--text-size-base);
+
+    padding: var(--padding-light);
+
+    border-style: none;
+    border-radius: 10px;
+    border-color: black;
+}
+
+.loginButton:hover {
+    transform: scale(1.05);
+    transition: 500ms;
+}
+
+.loginButton:active {
+    filter: invert(100%);
+    transition: 0s;
+}
+
+#statusMessage {
+    text-align: center;
+}
+
+.checking {
+    color: var(--background-grey);
 }
