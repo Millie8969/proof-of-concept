@@ -4,6 +4,7 @@ De instructies voor deze opdracht staan in: [docs/INSTRUCTIONS.md](https://githu
 
 # Titel
 <!-- Geef je project een titel en schrijf in één zin wat het is -->
+Tweakers Community Dashboard
 
 ## Inhoudsopgave
 
@@ -19,6 +20,8 @@ De instructies voor deze opdracht staan in: [docs/INSTRUCTIONS.md](https://githu
 <!-- Voeg een mooie poster visual toe 📸 -->
 <!-- Voeg een link toe naar Github Pages 🌐-->
 De link naar de site vind je hier: proof-of-concept-ri0t.onrender.com/
+
+<img width="621" height="867" alt="image" src="https://github.com/user-attachments/assets/05a342bd-5515-49b2-b904-e32d6f65fba2" />
 
 Het Tweakers Community Dashboard is een dashboard waar een 'community manager' op kan kijken om te zien wat trending is op het forum Gathering of Tweakers.
 
